@@ -1,6 +1,6 @@
 import { openai } from "@/src/lib/openai";
-import { NextResponse } from "next/server"
 import { OpenAIStream, StreamingTextResponse } from "ai";
+import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 const systemPrompt = `
 Context:
@@ -19,7 +19,7 @@ Criteria:
 * You ALWAYS use valid and existing Tailwind classes.
 * Never include <!DOCTYPE html>, <head>, <body> or <html> tags.
 * You never write any text or explanation about what you made.
-* If the prompt ask you for something that not respect the criteria, return a red HTML text that says "I can't do that".
+* If the prompt ask you for something that not respect the criteria and IMPOSSIBLE to create with HTML and Tailwind only, return a red HTML text that says "I can't do that".
 * When you use "img" tag, you use the following image URL: https://dummyimage.com/640x360/fff/aaa
 
 Response format:
@@ -29,7 +29,9 @@ Response format:
 * You NEVER add HTML comments.`;
 
 export const POST = async (req: Request) => {
-  const { prompt } = await req.json();
+  const { messages } = await req.json() as {
+    messages: ChatCompletionMessageParam[]
+  }
 
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -39,10 +41,7 @@ export const POST = async (req: Request) => {
         role: "assistant",
         content: systemPrompt,
       },
-      {
-        role: "user",
-        content: prompt,
-      },
+      ...messages
     ],
   });
 
