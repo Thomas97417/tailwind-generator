@@ -1,5 +1,8 @@
 'use client'
 
+import GeneratedCode from "@/src/components/items/GeneratedCode";
+import GeneratedIframe from "@/src/components/items/GeneratedIframe";
+import { Button } from "@/src/components/ui/button";
 import { Sparkles, Trash2 } from "lucide-react";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { useEffect, useRef, useState } from "react";
@@ -26,11 +29,18 @@ const useTimedState = (state: unknown, delay: number) => {
 }
 
 export default function Home() {
-  const [htmlCode, setHtmlCode] = useState('')
+  const [htmlCode, setHtmlCode] = useState(() => {
+    return localStorage.getItem('htmlCode') || '';
+  })
+  const [isCode, setIsCode] = useState(false)
   const timedHtmlCode = useTimedState(htmlCode, 4000)
   const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([])
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    localStorage.setItem('htmlCode', htmlCode);
+    console.log('code : ' + htmlCode)
+  }, [htmlCode]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -98,35 +108,16 @@ export default function Home() {
       </div>) : null}
 
       <div className="mt-5 w-full">
-        {timedHtmlCode ? (
-          <iframe 
-            className="w-full"
-            height="650px"
-            srcDoc={
-            `<!DOCTYPE html>
-            <html lang="en">
-              <head>
-                <meta charset="utf-8" />
-                <title>CodePen - Tailwind CSS</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-              </head>
-              <body>
-                ${timedHtmlCode}
-              </body>
-            </html>`
-            }
-          />
-        ) : null}
+        { isCode ? <GeneratedCode htmlCode={htmlCode} /> : <GeneratedIframe timedHtmlCode={timedHtmlCode} /> }
       </div>
 
       <div className="fixed bottom-4 left-0 right-0 flex items-center justify-center">
         <div className="p-4 bg-base-200 max-w-lg w-full rounded-lg shadow-xl">
-          <div className="max-w-full overflow-auto flex flex-col gap-1" style={{maxHeight: 150}}>
+          {/* <div className="max-w-full overflow-auto flex flex-col gap-1" style={{maxHeight: 150}}>
             {messages.filter(message => message.role === "user").map((message, index) => (
               <div key={index}><b>You</b> : {String(message.content)}</div>
             ))}
-          </div>
+          </div> */}
           <form onSubmit={handleSubmit}>
             <fieldset className="flex gap-4 items-start">
               <textarea name="prompt" className="w-full textarea textarea-primary" />
@@ -144,6 +135,7 @@ export default function Home() {
             </fieldset>
           </form>
         </div>
+        <Button className="ml-4" onClick={() => setIsCode(!isCode)}>{isCode ? 'Show Generation' : 'Show Code'}</Button>
       </div>
     </main>
   )

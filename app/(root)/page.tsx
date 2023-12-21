@@ -51,8 +51,6 @@ const page = () => {
               </Link>
             </Button>
           </div>
-
-          
         </div>
       </section>
       
