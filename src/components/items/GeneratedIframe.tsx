@@ -9,7 +9,7 @@ const GeneratedIframe: React.FC<GeneratedIframeProps> = ({timedHtmlCode}) => {
     <>
       {timedHtmlCode ? (
         <iframe 
-          className="w-full"
+          className="w-full not-daisy"
           height="650px"
           srcDoc={
           `<!DOCTYPE html>

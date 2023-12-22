@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
-import clsx from 'clsx'
-import { Providers } from './Providers';
 import Header from '@/src/components/layout/Header';
-import { cn } from '@/src/lib/utils';
 
 const poppins = Poppins({ 
   subsets: ['latin'],
@@ -27,12 +24,10 @@ export default function RootLayout({
       <html lang="en" className="h-full" suppressHydrationWarning>
         <head />
         <body className={poppins.variable}>
-          <Providers>
-            <div className="relative flex min-h-screen flex-col">
-              <Header />
-              <div className="flex-1">{children}</div>
-            </div>
-          </Providers>
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <div className="flex-1">{children}</div>
+          </div>
         </body>
       </html>
     </>
