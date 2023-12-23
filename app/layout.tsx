@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import Header from '@/src/components/layout/Header';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const poppins = Poppins({ 
   subsets: ['latin'],
@@ -21,15 +22,17 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <html lang="en" className="h-full" suppressHydrationWarning>
-        <head />
-        <body className={poppins.variable}>
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <div className="flex-1">{children}</div>
-          </div>
-        </body>
-      </html>
+      <ClerkProvider>
+        <html lang="en" className='h-full' suppressHydrationWarning>
+          <head />
+          <body className={poppins.variable}>
+            <div className="relative flex min-h-screen flex-col">
+              <Header />
+              <div className="flex-1">{children}</div>
+            </div>
+          </body>
+        </html>
+      </ClerkProvider>
     </>
   )
 }

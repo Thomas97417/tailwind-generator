@@ -32,7 +32,9 @@ const page = () => {
           />
         </div>
       </section>
-      <p id="get-started" className="m-5 h3-medium text-center">Get Started by generating your own API Key</p>
+
+      <p id="get-started" className="p-5 h3-medium text-center bg-dotted-pattern bg-contain bg-primary-50">Get Started by generating your own API Key</p>
+      
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
         <div className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
           <Image 
@@ -43,10 +45,11 @@ const page = () => {
             className="max-h [70vh] object-contain object-center 2xl:max-h-[50vh]"
           />
           <div className="flex flex-col justify-center gap-8">
-            <h3 className="h3-medium">Create & Log to your OpenAI account</h3>
+            <h3 className="h3-medium">Log to OpenAI</h3>
             <p className="p-regular-20 md:p-regular-24">
               Start by creating and log to your OpenAI account.<br />
-              Use this link.
+              Use this link. <br />
+              Menu &gt; Log in
             </p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
               <Link href="https://openai.com/" target="__blank">
@@ -86,7 +89,7 @@ const page = () => {
             className="max-h [70vh] object-contain object-center 2xl:max-h-[50vh]"
           />
           <div className="flex flex-col justify-center gap-8">
-            <h3 className="h3-medium">Click on the API section</h3>
+            <h3 className="h3-medium">Generate your Key</h3>
             <p className="p-regular-20 md:p-regular-24">
               In the API Key section, click on "Create a new secret key".<br />
               Copy your API Key and paste it in the input below.
