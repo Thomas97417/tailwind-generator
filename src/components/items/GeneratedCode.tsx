@@ -12,9 +12,9 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({htmlCode}) => {
   }
   return (
     <>
-    <div className='h-45'>
-      <Button className='mb-2' onClick={CopyToClipboard}>Copy</Button>
-      <SyntaxHighlighter language="javascript" style={magula} wrapLines={true} showLineNumbers={true}>
+    <div className='w-full flex flex-col'>
+      <Button className='mb-2 text-center' onClick={CopyToClipboard}>Copy</Button>
+      <SyntaxHighlighter language="javascript" style={magula} wrapLines={true} showLineNumbers={true} className="h-[67vh]">
         {htmlCode}
       </SyntaxHighlighter>
     </div>

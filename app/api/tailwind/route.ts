@@ -1,4 +1,4 @@
-import { openai } from "@/src/lib/openai";
+import {  openai } from "@/src/lib/openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
@@ -20,7 +20,7 @@ Criteria:
 * Never include <!DOCTYPE html>, <head>, <body> or <html> tags.
 * You never write any text or explanation about what you made.
 * If the prompt ask you for something that not respect the criteria and IMPOSSIBLE to create with HTML and Tailwind only, return a red HTML text that says "I can't do that".
-* When you use "img" tag, you use the following image URL: https://dummyimage.com/640x360/fff/aaa
+* When you use "img" tag, you use the following image URL: https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg
 
 Response format:
 * You generate only plain html text.

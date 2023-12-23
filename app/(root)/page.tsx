@@ -1,10 +1,11 @@
+"use client"
 import { Button } from "@/src/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import { useState } from "react"
 
 const page = () => {
-  const [apiKey, setApiKey] = React.useState('')
+  const [apiKey, setApiKey] = useState('');
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -16,7 +17,7 @@ const page = () => {
               Refine, Adjust, and Customize your website with our AI Assistant.
             </p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
-              <Link href="#events">
+              <Link href="#get-started">
                 Try Now
               </Link>
             </Button>
@@ -31,7 +32,7 @@ const page = () => {
           />
         </div>
       </section>
-      <p className="m-5 h3-medium text-center">Get Started by generating your own API Key</p>
+      <p id="get-started" className="m-5 h3-medium text-center">Get Started by generating your own API Key</p>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
         <div className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
           <Image 
@@ -97,16 +98,23 @@ const page = () => {
       {/* KEY INPUT */}
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
         <div className="flex flex-row justify-center">
-        <form onSubmit={(e) => {
+        <form onSubmit={async (e) => {
           e.preventDefault();
-          localStorage.setItem('OPENAI_API_KEY', apiKey);
+          // Store the API key in localStorage
+          localStorage.setItem('apiKey', apiKey);
+          const response = await fetch('/api/useOpenAI', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ apiKey }),
+          });
+          console.log(response);
         }}>
-          <label htmlFor="">Renseignez votre API Key</label> <br />
-          <input type="text" placeholder="Type your key" className="mt-2" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
-          <Button size="lg" asChild className="button w-full sm:w-fit" type="submit">
-            <Link href="/generation">
-              Generate
-            </Link>
+          <label htmlFor="">Renseignez votre API Key :</label>
+          <input type="text" placeholder="Type your key" className="mt-2 ml-2" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+          <Button className="button w-full sm:w-fit ml-2" type="submit">
+            Store key
           </Button>
         </form>
         </div>

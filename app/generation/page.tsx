@@ -104,7 +104,7 @@ export default function Home() {
     <main className="h-full flex flex-col px-4 justify-center">
       {loading ? (
         <div className="absolute top-4 left-0 right-0 flex items-center justify-center">
-          <progress className="progress w-56"/>
+          <progress className="progress w-56 not-daisy"/>
         </div>
       ) : null}
 
